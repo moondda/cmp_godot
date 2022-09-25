@@ -1,0 +1,168 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Player1/Player.gd" type="Script" id=1]
+[ext_resource path="res://새 폴더/idle.png" type="Texture" id=2]
+[ext_resource path="res://Player1/SK_bar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://새 폴더/walk2.png" type="Texture" id=4]
+[ext_resource path="res://새 폴더/walk1.png" type="Texture" id=5]
+[ext_resource path="res://새 폴더/walk3.png" type="Texture" id=6]
+[ext_resource path="res://새 폴더/fwalk 1.png" type="Texture" id=7]
+[ext_resource path="res://새 폴더/fwalk3.png" type="Texture" id=8]
+[ext_resource path="res://새 폴더/fwalk2.png" type="Texture" id=9]
+[ext_resource path="res://새 폴더/bwalk1.png" type="Texture" id=10]
+[ext_resource path="res://새 폴더/bwalk2.png" type="Texture" id=11]
+[ext_resource path="res://새 폴더/bwalk3.png" type="Texture" id=12]
+[ext_resource path="res://Player1/dead2.png" type="Texture" id=13]
+[ext_resource path="res://Player1/dead1.png" type="Texture" id=14]
+[ext_resource path="res://새 폴더/2132605.png" type="Texture" id=15]
+[ext_resource path="res://Player1/HP_bar.tscn" type="PackedScene" id=16]
+[ext_resource path="res://unnamed.png" type="Texture" id=17]
+[ext_resource path="res://Player1/case.gd" type="Script" id=18]
+[ext_resource path="res://Player1/case2.gd" type="Script" id=19]
+[ext_resource path="res://Player1/Level.gd" type="Script" id=20]
+[ext_resource path="res://Player1/coinsystem.tscn" type="PackedScene" id=21]
+[ext_resource path="res://game over.mp3" type="AudioStream" id=22]
+[ext_resource path="res://pop-shot.mp3" type="AudioStream" id=23]
+[ext_resource path="res://coin.wav" type="AudioStream" id=24]
+[ext_resource path="res://hit_sound.mp3" type="AudioStream" id=25]
+[ext_resource path="res://run.mp3" type="AudioStream" id=26]
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "b_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "f_walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11.5, 16.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12, 16.5 )
+
+[node name="Player" type="KinematicBody2D" groups=["player", "player1"]]
+position = Vector2( 48, 34 )
+collision_mask = 369
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 2.89286, 20.5 )
+scale = Vector2( 0.696911, 0.673469 )
+frames = SubResource( 10 )
+animation = "walk"
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.5, 21.5 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 29, 27 )
+collision_layer = 4097
+collision_mask = 315
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -25, -4.5 )
+shape = SubResource( 2 )
+
+[node name="skill" parent="." instance=ExtResource( 3 )]
+margin_left = -37.0
+margin_top = -16.0
+margin_right = 57.0
+margin_bottom = -6.0
+
+[node name="HP_bar" parent="." instance=ExtResource( 16 )]
+margin_left = -40.0
+margin_top = -30.0
+margin_right = 55.0
+margin_bottom = -15.0
+
+[node name="case" type="Sprite" parent="."]
+position = Vector2( -2, 26 )
+scale = Vector2( 0.05125, 0.0420709 )
+texture = ExtResource( 17 )
+script = ExtResource( 18 )
+
+[node name="casePosition2D" type="Position2D" parent="case"]
+position = Vector2( -221.053, 0 )
+
+[node name="shooting" type="AudioStreamPlayer2D" parent="case"]
+position = Vector2( 69.8501, -973.536 )
+scale = Vector2( 34.9251, 38.9414 )
+stream = ExtResource( 23 )
+volume_db = -10.0
+bus = "effect"
+
+[node name="case2" type="Sprite" parent="."]
+position = Vector2( -2, 25 )
+scale = Vector2( 0.0286327, 0.0256796 )
+texture = ExtResource( 15 )
+script = ExtResource( 19 )
+
+[node name="case2Position2D" type="Position2D" parent="case2"]
+position = Vector2( -413.918, 37.9863 )
+
+[node name="shooting" type="AudioStreamPlayer2D" parent="case2"]
+position = Vector2( 69.8501, -973.536 )
+scale = Vector2( 34.9251, 38.9414 )
+stream = ExtResource( 23 )
+volume_db = -10.0
+bus = "effect"
+
+[node name="Level" type="Label" parent="."]
+margin_left = 56.0
+margin_top = -29.0
+margin_right = 91.0
+margin_bottom = -6.0
+text = "LV: "
+align = 1
+valign = 1
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinSystem" parent="." instance=ExtResource( 21 )]
+
+[node name="sound" type="Node2D" parent="."]
+
+[node name="move" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource( 26 )
+volume_db = -15.0
+bus = "effect"
+
+[node name="hit" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource( 25 )
+bus = "effect"
+
+[node name="dead" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource( 22 )
+bus = "effect"
+
+[node name="coin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 24 )
+bus = "effect"
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

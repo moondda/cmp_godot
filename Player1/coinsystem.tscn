@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player1/Game.gd" type="Script" id=3]
+[ext_resource path="res://Player1/CoinScore.gd" type="Script" id=4]
+
+[node name="CoinSystem" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CoinScore" type="Label" parent="CanvasLayer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 45.0
+margin_bottom = 19.0
+text = "coin: "
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
